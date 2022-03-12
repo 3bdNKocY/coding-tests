@@ -1,3 +1,4 @@
+using API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +25,9 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Added as a singleton to mimic a database more closely.
+            services.AddSingleton<ILocationRepository, LocationRepository>();
+
             services.AddMvc();
             services.AddSwaggerGen(c =>
             {
