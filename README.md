@@ -30,6 +30,10 @@ Due to lack of time this is not possible.
 
 ## Notes
 
-There are more assumptions made than is generally advisable due to lack of a PO / Analyst for clarifications.
+There are more assumptions made than is generally advisable due to lack of a PO / Analyst for clarifications, such as:
+
+* there only being a single rover
+* slow updates
+* no idea about the userbase for this service (caching requirements, # concurrent requests, ...)
 
 The location of the rover is stored as a Stack as this mimics the more applicable event-sourcing approach required when implementing a history.
