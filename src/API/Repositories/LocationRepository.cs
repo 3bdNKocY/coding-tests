@@ -1,5 +1,6 @@
 ﻿using API.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace API.Repositories
 {
@@ -12,14 +13,16 @@ namespace API.Repositories
             _positions.Push(new Position(0, 0, Orientation.N));
         }
 
-        public Position GetCurrentLocation()
+        public Task<Position> GetCurrentLocation()
         {
-            return _positions.Peek();
+            return Task.FromResult(_positions.Peek());
         }
 
-        public void AddPosition(Position position)
+        public Task AddPosition(Position position)
         {
             _positions.Push(position);
+
+            return Task.CompletedTask;
         }
     }
 }
