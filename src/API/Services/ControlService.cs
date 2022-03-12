@@ -53,12 +53,26 @@ namespace API.Services
                 _ => 0,
             };
 
-            var isNorthSouth = orientation == Orientation.N || orientation == Orientation.S;
+            var northSouthPosition = position.NorthSouthPosition;
+            var westEastPosition = position.WestEastPosition;
 
-            return new Position(
-                isNorthSouth ? position.NorthSouthPosition + movement : position.NorthSouthPosition,
-                !isNorthSouth ? position.WestEastPosition + movement : position.WestEastPosition,
-                orientation);
+            switch (orientation)
+            {
+                case Orientation.N:
+                    northSouthPosition += movement;
+                    break;
+                case Orientation.E:
+                    westEastPosition += movement;
+                    break;
+                case Orientation.S:
+                    northSouthPosition -= movement;
+                    break;
+                case Orientation.W:
+                    westEastPosition -= movement;
+                    break;
+            }
+
+            return new Position(northSouthPosition, westEastPosition, orientation);
 
         }
     }

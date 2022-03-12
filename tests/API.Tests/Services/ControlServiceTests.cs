@@ -45,5 +45,23 @@ namespace API.Tests.Services
                         && p.WestEastPosition == westEastPosition
                         && p.Orientation == orientation)), Times.Once);
         }
+
+        [Fact]
+        public async Task ProcessCommand_WhenCalledAfterRotation_MovesCorrectDirection()
+        {
+            var sut = new Mocker<ControlService>();
+            sut.Obtain<ILocationRepository>()
+                .Setup(lr => lr.GetCurrentLocation())
+                .ReturnsAsync(new Position(0, 0, Orientation.W));
+
+            await sut.Object.ProcessCommand(Command.F);
+
+            sut.Obtain<ILocationRepository>()
+                .Verify(lr => lr
+                    .AddPosition(It.Is<Position>(p =>
+                        p.NorthSouthPosition == 0
+                        && p.WestEastPosition == -1
+                        && p.Orientation == Orientation.W)), Times.Once);
+        }
     }
 }
